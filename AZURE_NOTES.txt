@@ -1,0 +1,4 @@
+Add these packages if not present:
+- Azure.Storage.Blobs
+- Microsoft.EntityFrameworkCore.SqlServer (if migrating to Azure SQL)
+- Microsoft.Data.SqlClient (if using SQL Server)
