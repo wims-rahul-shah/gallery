@@ -1,20 +1,18 @@
-# Build stage
+# Use official .NET SDK image for build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY gallery.csproj ./
-RUN dotnet restore gallery.csproj
+# Copy csproj and restore dependencies
+COPY gallery/gallery.csproj ./gallery/
+RUN dotnet restore ./gallery/gallery.csproj
 
+# Copy everything and build
 COPY . .
+WORKDIR /src/gallery
 RUN dotnet publish gallery.csproj -c Release -o /app/publish /p:UseAppHost=false
 
-# Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Use runtime image for smaller final container
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-
-# Vercel expects service to listen on port 8080
-ENV ASPNETCORE_URLS=http://+:8080
-EXPOSE 8080
-
 ENTRYPOINT ["dotnet", "gallery.dll"]
