@@ -90,7 +90,7 @@ namespace YourNamespace.Controllers
         }
 
         // ----------------- VIDEO LIBRARY -----------------
-        public async Task<IActionResult> VideoLibrary(string q = "trending music")
+        public async Task<IActionResult> VideoLibrary(string q = "trending music video india")
         {
             var apiKey = _config["YouTube:ApiKey"];
             List<dynamic> list;
@@ -188,7 +188,7 @@ namespace YourNamespace.Controllers
 
                 var body = new
                 {
-                    model = "deepseek/deepseek-r1-0528:free",
+                    model = "deepseek/deepseek-chat-v3-0324",
                     messages = new[]
                     {
                 new { role = "user", content = request.Message }
@@ -274,3 +274,4 @@ namespace YourNamespace.Controllers
 
     }
 }
+
