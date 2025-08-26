@@ -19,17 +19,13 @@ namespace YourNamespace.Data
                 .AddEnvironmentVariables();
 
             var config = builder.Build();
+
+            // Always use SQLite
             var cs = config.GetConnectionString("DefaultConnection") ?? "Data Source=app.db";
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>();
-            if (cs.Contains("Data Source=") && cs.EndsWith(".db"))
-            {
-                options.UseSqlite(cs);
-            }
-            else
-            {
-                options.UseSqlServer(cs);
-            }
+            options.UseSqlite(cs);
+
             return new ApplicationDbContext(options.Options);
         }
     }
