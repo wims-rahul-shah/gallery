@@ -22,7 +22,7 @@ namespace YourNamespace.Data
             var cs = config.GetConnectionString("DefaultConnection") ?? "Data Source=app.db";
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>();
-            if (cs.Contains("Data Source=") and cs.EndsWith(".db"))
+            if (cs.Contains("Data Source=") && cs.EndsWith(".db"))
             {
                 options.UseSqlite(cs);
             }
