@@ -1,0 +1,169 @@
+﻿<h2>📊 Widgets Dashboard</h2>
+
+<div class="widgets-container">
+    <!-- Weather Widget -->
+    <div class="widget weather-widget">
+        <h5>🌤 Weather</h5>
+        <div id="weatherContent">Loading weather...</div>
+    </div>
+
+    <!-- Clock Widget -->
+    <div class="widget clock-widget">
+        <h5>⏰ Clock</h5>
+        <p id="clockTime" style="font-size:24px;"></p>
+        <p id="clockDate"></p>
+    </div>
+
+    <!-- To-Do Widget -->
+    <div class="widget todo-widget">
+        <h5>📝 To-Do List</h5>
+        <input type="text" id="newTodo" placeholder="Add a task..." />
+        <ul id="todoList"></ul>
+    </div>
+
+    <!-- Calculator -->
+    <div class="widget calculator-widget">
+        <h5>🧮 Calculator</h5>
+        <input type="text" id="calcInput" placeholder="Enter e.g. 2+2" />
+        <button onclick="calculate()">Calculate</button>
+        <p id="calcResult"></p>
+    </div>
+
+    <!-- Stopwatch -->
+    <div class="widget stopwatch-widget">
+        <h5>⏱ Stopwatch</h5>
+        <div id="stopwatch" style="font-size:20px;">00:00:00.000</div>
+        <div class="btn-group">
+            <button onclick="startStopwatch()">Start</button>
+            <button onclick="stopStopwatch()">Stop</button>
+            <button onclick="resetStopwatch()">Reset</button>
+        </div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="widget calendar-widget">
+        
+        <div class="calendar-frame">
+            <iframe src="https://calendar.google.com/calendar/embed?src=2382f08ad43a463b4110ebc4e7e9e68130065087d10d9318bf94b9de84cb69c9%40group.calendar.google.com&ctz=Asia%2FKolkata"
+                    frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <!-- Quote of the Day -->
+    <div class="widget quote-widget" style="grid-column: span 3; text-align:center; max-height:180px;">
+        <h5>💡 Quote of the Day</h5>
+        <p id="quoteText" style="font-style:italic; font-size:18px; margin-top:10px;">
+            Loading quote...
+        </p>
+    </div>
+</div>
+
+<style>
+    .widgets-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* desktop default */
+        gap: 20px;
+    }
+
+    /* Responsive breakpoints */
+    @@media (max-width: 1024px) {
+        .widgets-container
+
+    {
+        grid-template-columns: repeat(2, 1fr); /* tablet */
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        .widgets-container
+
+    {
+        grid-template-columns: 1fr; /* mobile */
+    }
+
+    .widget {
+        min-height: auto;
+    }
+
+    .quote-widget, .gcal-widget {
+        grid-column: auto !important; /* don’t span across */
+    }
+
+    }
+
+    .widget {
+        padding: 15px;
+        border-radius: 12px;
+        background: linear-gradient(145deg, #0f2027, #203a43);
+        color: #0ff;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 0 20px rgba(0, 255, 128, 0.2) inset;
+    }
+
+        .widget input, .widget textarea, .widget button {
+            width: 100%;
+            margin-top: 8px;
+            padding: 6px;
+            border-radius: 6px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #0ff;
+        }
+
+        .widget button {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .widget button:hover {
+                background: rgba(0, 255, 128, 0.3);
+            }
+
+    .todo-widget ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .todo-widget li {
+        padding: 5px;
+        margin-bottom: 4px;
+        background: rgba(0, 255, 128, 0.1);
+        border-radius: 4px;
+        cursor: grab;
+    }
+
+        .todo-widget li.dragging {
+            opacity: 0.5;
+        }
+
+    .btn-group {
+        display: flex;
+        gap: 5px;
+    }
+
+    .quote-widget {
+        min-height: auto !important;
+        padding: 10px;
+    }
+
+    .calendar-widget {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calendar-frame {
+        flex: 1; /* take all remaining height */
+        width: 100%;
+    }
+
+        .calendar-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 8px; /* optional, to match widget style */
+        }
+</style>
