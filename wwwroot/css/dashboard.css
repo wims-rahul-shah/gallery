@@ -1,0 +1,65 @@
+/* GitHub-like responsive styling */
+
+:root{
+    --gh-bg:#f6f8fa;
+    --gh-card:#ffffff;
+    --gh-border:#d0d7de;
+    --gh-text:#24292f;
+    --gh-subtle:#57606a;
+    --gh-blue:#0969da;
+}
+
+/* Main content card spacing */
+#mainContent > * + * { margin-top: 1rem; }
+
+/* Photo Library */
+.photolib {
+    height: calc(100vh - 110px);
+    overflow-y: auto;
+}
+
+.folders {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.folder {
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    background: var(--gh-card);
+    border: 1px solid var(--gh-border);
+    transition: background .15s, box-shadow .15s, border-color .15s;
+}
+.folder:hover {
+    background: #f3f4f6;
+    box-shadow: 0 1px 0 rgba(27,31,36,0.04);
+}
+.folder.active {
+    border-color: var(--gh-blue);
+    box-shadow: 0 0 0 3px rgba(9,105,218,0.15);
+}
+
+.folder-icon {
+    width: 54px;
+    height: 54px;
+    display: block;
+    margin: 0 auto 6px;
+}
+
+.folder-name {
+    font-size: 13px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+/* Small screens: 2 per row minimum */
+@media (max-width: 576px) {
+    .folders { grid-template-columns: repeat(2, 1fr); }
+    .folder-icon { width: 48px; height: 48px; }
+    .folder-name { font-size: 12px; }
+}
