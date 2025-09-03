@@ -38,10 +38,54 @@ namespace YourNamespace.Controllers
             return PartialView("_dashboard");
         }
 
-        public IActionResult PhotoLibrary()
+            public IActionResult PhotoLibrary()
+    {
+        var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+
+        // Default links
+        var links = new List<(string Id, string Name)>
+{
+    ("1abcDefaultFolderID", "Default Folder 1"),
+    ("1xyzDefaultFolderID", "Default Folder 2")
+};
+
+        if (!string.IsNullOrEmpty(email))
         {
-            return PartialView("_photoLibrary");
+            if (email.Equals("rahullrex786@gmail.com", StringComparison.OrdinalIgnoreCase) ||
+                email.Equals("rg2927182@gmail.com", StringComparison.OrdinalIgnoreCase))
+            {
+                // Special set of links for xyz / abc
+                links = new List<(string Id, string Name)>
+        {
+            ("1nJee7mQFFNIu4CosqHuYul3Ifj__wps9", "Priti Pics"),
+            ("1nElVG_2L-73DARWhMPNC5BTTXGcZU7fV", "Priti Snaps"),
+            ("1O4WPWXzgTUIvNYiIwYmdgZy4bmGi_qvM", "Videos"),
+            ("1OAHWr0S99pqHHQu6eFSLzIf7oy2LAHfY", "Priti Edits"),
+            ("1ew_edA-Xktv9fo_qKk7cgP3tvUecLovQ", "Documents"),
+            ("1zT-vqDuOl5k0G8CBQGeWiJU63vCWacK4", "Favorites"),
+            ("1nOkFVANqq-0FjNe22ZhGKwae7Xfw057j", "Items"),
+            ("1nQsdRJnHQyldSjQPDWGzZkZk5RnSOjJz", "Mehendi")
+        };
+            }
+            else
+            {
+                // Other users → show different set of links
+                links = new List<(string Id, string Name)>
+        {
+            ("1s8K2NmYFt7RcERiSBkRtelpI6VDUWAdl", "Designs"),
+            ("1MsRAXGDgCkUAz9_qfHuh-GRhukNSyupr", "Gen AI"),
+            ("12ovPVJ4SR6JxRI9n6AaBFRwWsO0TczAb", "High Quality"),
+            ("1hP09us16R3NqeKbxz9z7zWYdWSzojVxd", "Logos"),
+            ("18bU4qRk1Go45vApTmqQoPyuBkXAk4lNL", "Scenery"),
+            ("1z_Szz6pMKhM0t1W4cnniAZwN9KyRwHjg", "Space"),
+            ("1UjNkYEZ5oTwnCjIvOh7XGuNxMqe56Vb8", "Wallpapers"),
+            ("1_zBtYCXvfe5Hio27sHSxmtGd2bgE-d5R", "Windows 8K")
+        };
+            }
         }
+
+        return PartialView("_photoLibrary", links);
+    }
 
         public IActionResult Users()
         {
@@ -274,4 +318,5 @@ namespace YourNamespace.Controllers
 
     }
 }
+
 
