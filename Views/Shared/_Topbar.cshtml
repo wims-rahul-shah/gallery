@@ -20,10 +20,12 @@
         var user = HttpContextAccessor.HttpContext.User;
         var name = user.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value ?? user.Identity.Name;
         var email = user.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "NA";
+        var avatarClaim = user.FindFirst("picture")?.Value;
+        var avatarUrl = !string.IsNullOrEmpty(avatarClaim) ? avatarClaim : "/images/default-avatar.png";
 
         <div class="dropdown">
             <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="@Url.Content("/images/" + email + ".jpg")" alt="Profile" class="profile-img me-2" />
+                <img src="@Url.Content(avatarUrl)" alt="Profile" class="profile-img me-2" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                 <li class="dropdown-item-text"><strong>@name</strong></li>
