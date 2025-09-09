@@ -1,4 +1,4 @@
-﻿using Google.Apis.Auth;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +63,37 @@ public class AccountController : Controller
 
         return Json(new { success = true});
     }
+
+    [HttpPost]
+    public async Task<IActionResult> DefaultLogin([FromForm] string username, [FromForm] string password)
+    {
+        // Simple default login check
+        if (username == "admin@google.com" && password == "admin@1997")
+        {
+            var claims = new[]
+            {
+            new Claim(ClaimTypes.NameIdentifier, "admin"),
+            new Claim(ClaimTypes.Name, "Administrator"),
+            new Claim(ClaimTypes.Email, "admin@google.com"),
+
+        };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            // Store session info if needed
+            HttpContext.Session.SetString("DefaultLogin", "true");
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // Invalid credentials
+        TempData["LoginError"] = "Invalid username or password!";
+        return RedirectToAction("Login");
+    }
+
 
     public async Task<IActionResult> Logout()
     {
