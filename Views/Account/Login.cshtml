@@ -211,11 +211,11 @@
                 <h1>Sign in to My Portal</h1>
             </div>
             <div class="login-card">
-                <form onsubmit="showLoader(); return false;">
+                <form method="post" asp-controller="Account" asp-action="DefaultLogin" onsubmit="showLoader()">
                     <label>Email address</label>
-                    <input type="email" class="form-control" placeholder="you@example.com" required />
+                    <input type="email" name="username" class="form-control" placeholder="you@example.com" required />
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="••••••••" required />
+                    <input type="password" name="password" class="form-control" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required />
                     <button type="submit" class="btn-primary">Sign in</button>
                 </form>
 
@@ -256,11 +256,8 @@
 
         async function handleCredentialResponse(response) {
             console.log("Encoded JWT ID token: " + response.credential);
-
-            // show loader while verifying
             showLoader();
 
-            // Send token to server for validation
             const res = await fetch('/Account/GoogleLogin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
